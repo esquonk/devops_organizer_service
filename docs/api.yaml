@@ -1,0 +1,74 @@
+openapi: 3.0.1
+info:
+  title: DevOps Organizer Service
+  version: '1'
+servers:
+  - url: http://172.104.135.190:8899/api/v1/
+paths:
+  /organizer/distribute/:
+    post:
+      summary: "Get DevOps Manager and Engineer distribution"
+      requestBody:
+        description: "DM and DC capacity, data center configuration"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - DM_capacity
+                - DE_capacity
+                - data_centers
+              properties:
+                DM_capacity:
+                  type: integer
+                  description: "Server maintenance capacity for DevOps Manager"
+                  example: 20
+                DE_capacity:
+                  type: integer
+                  description: "Server maintenance capacity for DevOps Engineer"
+                  example: 8
+                data_centers:
+                  type: array
+                  description: "Data center configuration"
+                  example:
+                    - name: "Paris"
+                      servers: 20
+                    - name: "Stockholm"
+                      servers: 62
+                  items:
+                    type: object
+                    required:
+                      - name
+                      - servers
+                    properties:
+                      name:
+                        type: string
+                      servers:
+                        type: integer
+                        description: "Server count for data center"
+
+
+      responses:
+        200:
+          description: "DevOps distribution info"
+          content:
+            application/json:
+              schema:
+                type: object
+                required: ['value']
+                properties:
+                  value:
+                    type: object
+                    properties:
+                      DE:
+                        type: integer
+                        description: "DevOps Engineer count"
+                        example: 8
+                      DM_data_center:
+                        type: string
+                        description: "Name of best data center for DevOps Manager placement"
+
+        400:
+          description: Invalid request parameters
+          content: {}

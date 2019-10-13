@@ -28,4 +28,6 @@ class DevopsOrganizerViews(ViewSet):
             'DM_data_center': dm_datacenter.name
         }).data
 
-        return Response(response_data)
+        return Response({
+            'value': response_data
+        })

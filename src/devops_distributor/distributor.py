@@ -18,6 +18,11 @@ class Distributor:
     __slots__ = ['dm_capacity', 'de_capacity', 'data_centers']
 
     def __init__(self, dm_capacity: int, de_capacity: int, data_centers: List[DataCenter]):
+        if dm_capacity < 0:
+            raise ValueError('dm_capacity should be 0 or more')
+        if de_capacity < 1:
+            raise ValueError('de_capacity should be 1 or more')
+
         self.dm_capacity = dm_capacity
         self.de_capacity = de_capacity
         self.data_centers = data_centers
@@ -38,7 +43,7 @@ class Distributor:
         """
         return max(self.data_centers, key=self._data_center_dm_score)
 
-    def get_de_count(self, dm_data_center_name: str):
+    def get_de_count(self, dm_data_center_name: str) -> int:
         """
         :param dm_data_center_name: Name of data center that DM is working at
         :return: Amount of DEs needed for server maintenance
