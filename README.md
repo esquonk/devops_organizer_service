@@ -1,10 +1,18 @@
 # DevOps organizer service
 
+A standalone REST service.
+
+Given DevOps Managers and Engineers capacity and a list of data centers, 
+computes the best data center for DM placement
+and the amount of DEs needed for data center maintenance.
+
 ## Preparing for launch
 ```
 cp .env.example .env
 docker-compose build
 ```
+
+.env file should be edited as appropriate for deployment.
 
 ## Running tests
 ```
