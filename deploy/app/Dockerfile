@@ -19,9 +19,9 @@ RUN pip3 install pipenv
 COPY src /app
 
 COPY Pipfile Pipfile.lock ./
-
 RUN pipenv install --system --dev
 
+COPY pytest.ini ./
 RUN python3 /app/manage.py collectstatic --no-input
 
 EXPOSE 8000
